@@ -1,0 +1,36 @@
+install LEMP stack (Linux, Nginx, MySQL, PHP) on Ubuntu 20.04 : https://www.codewithharry.com/blogpost/lemp-stack-on-ubuntu-20/
+
+
+install PhpMyAdmin on Ubuntu running Nginx (LEMP stack) : https://www.codewithharry.com/blogpost/install-phpmyadmin-ubuntu-nginx/
+
+deploy flask app on Ubuntu VPS using Nginx and gunicorn : https://www.codewithharry.com/blogpost/flask-app-deploy-using-gunicorn-nginx/
+
+
+creating mysql user:
+mysql> CREATE USER 'ajpuc'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'ajpuc123@Kvg';
+mysql> CREATE USER 'ajpuc'@'%' IDENTIFIED WITH caching_sha2_password BY 'ajpuc123@Kvg';
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'ajpuc'@'localhost' WITH GRANT OPTION;
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'ajpuc'@'%' WITH GRANT OPTION;
+
+
+To Allow Remote Access to MySQL:
+$sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
+
+'''
+[mysqld]
+pid-file        = /var/run/mysqld/mysqld.pid
+socket          = /var/run/mysqld/mysqld.sock
+datadir         = /var/lib/mysql
+log-error       = /var/log/mysql/error.
+'''
+
+
+
+
+install :
+$ apt-get install ffmpeg libsm6 libxext6  -y
+$ sudo apt-get install default-libmysqlclient-dev
+
+
+kill process:
+$ sudo kill -9 `sudo lsof -t -i:5000`

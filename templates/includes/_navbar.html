@@ -1,0 +1,86 @@
+<!-- <style>
+  @media(max-width:768px){
+    .navbar-brand {
+    display: inline-block;
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+    margin-right: 1rem;
+    font-size: 2.25rem;
+    line-height: inherit;
+    white-space: nowrap;
+}
+    .navbar {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 1.5rem 1rem;
+}
+    .navbar-toggler {
+    padding: 0.25rem 0.75rem;
+    font-size: 2.25rem;
+    line-height: 1;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+  }
+</style> -->
+<style>
+  .hogo{
+        max-width: 20%;
+       
+      }
+    @media(max-width: 768px){
+      .hogo{
+        max-width: 20%;
+        font-size: 16px;
+      }
+    }
+
+    .navbar-brand{
+      display: flex;
+      align-items: center;
+    }
+
+  
+  
+</style>
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-lg navbar-fixed-top" style="z-index: 100;">
+  <div class="container">
+    
+    <a class="navbar-brand hogo" href="/"><img src="/static/1.png" alt="">KVG AJPUC Exam Portal<img src="/static/2.png" alt=""></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        {% if session.logged_in %}
+          <li class="nav-item ">
+            <a href="/dashboard" class="nav-link">Dashboard</a>
+          </li>
+          <li class="nav-item ">
+            <a href="/help_support" class="nav-link">help&support</a>
+          </li>
+          <li class="nav-item">
+            <a href="/logout" class="nav-link">Logout</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a href="/register" class="nav-link">Register</a></li>
+          <li class="nav-item">
+            <a href="/login" class="nav-link">Login</a>
+          </li>
+          <li class="nav-item ">
+            <a href="/help_support" class="nav-link">help&support</a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

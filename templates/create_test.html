@@ -1,0 +1,65 @@
+{% extends 'layout.html' %}
+{% block head %}
+  <link rel="stylesheet" href="/static/create_test.css">
+{% endblock %}
+{% block body %}
+<style>
+  footer {
+    display: none;
+  }
+</style>
+{% from "includes/_formhelpers.html" import render_field %}
+<!-- <div id="heading">
+  <div class="col">
+    <h1>Create Test</h1>
+  </div>
+</div> -->
+<div class="login-box well">
+  <div class="col">
+    <h1>Create Test</h1>
+  </div>
+  <form method="POST" action="" enctype="multipart/form-data">
+    <div class="form-group">
+      {{render_field(form.subject, class="form-control", placeholder="Subject")}}
+    </div>
+    <div class="form-group">
+      {{render_field(form.topic, class="form-control", placeholder="Topic")}}
+    </div>
+    <div class="row">
+      <div class="form-group col-6">
+        {{render_field(form.start_date, class="form-control")}}
+      </div>
+      <div class="form-group col-6">
+        {{render_field(form.start_time, class="form-control")}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-6">
+        {{render_field(form.end_date, class="form-control")}}
+      </div>
+      <div class="form-group col-6">
+        {{render_field(form.end_time, class="form-control")}}
+      </div>
+    </div>
+    <div class="form-group">
+      {{render_field(form.duration, class="form-control", placeholder="Duration")}}
+    </div>
+    <div class="form-group">
+      {{render_field(form.password, class="form-control", placeholder="Password")}}
+    </div>
+    <div class="form-group">
+    	{{form.hidden_tag()}}
+        {{render_field(form.doc, class="form-control-file")}}
+    </div>
+    <div class="form-check">
+      <label for="show">Show Result after completion</label>
+      {{render_field(form.show_result, class="form-check-input")}}
+    </div>
+    <div class="form-check">
+      <label for="neg">Enable negative marking</label>
+      {{render_field(form.neg_mark, class="form-check-input")}}
+    </div>
+    <p><input type="submit" class="btn btn-primary" value="Create"></p>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'layout.html' %}
+
+{%block head %}
+<link rel="stylesheet" href="static/register.css">
+<!-- <link rel="stylesheet" type="text/css" href="static/mylogin.css"> -->
+{% endblock %}
+
+{% block body %}
+<style>
+  .footer {
+    position: absolute;
+    bottom: -40px;
+  }
+
+  @media(min-width:767px){
+    .footer {
+    position: absolute;
+    bottom: -400px;
+  }
+  }
+
+</style>
+<div class="container" align="center" id="" style="position: absolute; top:10%;">
+  {% from "includes/_formhelpers.html" import render_field %}
+  <!-- <div class="row">
+    <div class="col-sm">
+      <h1>Register</h1>
+    </div>
+  </div> -->
+  <div class="login-box well">
+    <div class="col-sm">
+      <h1>Register</h1>
+    </div>
+    <form method="POST" action="">
+      <div class="form-group">
+        {{render_field(form.name, class_="form-control", placeholder="Name")}}
+      </div>
+      <div class="form-group">
+        {{render_field(form.fath, class_="form-control", placeholder="Father's Name")}}
+      </div>
+      <div class="form-group">
+        {{render_field(form.school, class_="form-control", placeholder="School")}}
+      </div>
+      <div class="form-group">
+        {{render_field(form.stream, class_="form-control")}}
+      </div>
+      <div class="form-group">
+        {{render_field(form.email, class_="form-control", placeholder="Email")}}
+      </div>
+      <div class="form-group">
+        {{render_field(form.username, class_="form-control", placeholder="Phone No.")}}
+      </div>
+      <div class="form-group">
+        {{render_field(form.password, class_="form-control", placeholder="Password")}} <span
+          class="fas fa-eye icon"></span>
+      </div>
+      <div class="form-group">
+        {{render_field(form.confirm, class_="form-control", placeholder="Confirm Password")}}
+      </div>
+      <p style="margin: 0px;"><input type="submit" class="btn btn-primary" value="Submit"
+          style="background-color: #6a63dd"></p>
+    </form>
+    <p>Already have an account?
+      <a href="/login" id="register">Login</a>.
+    </p>
+  </div>
+  <br><br><br>
+</div>
+<script>
+  var flag = true;
+  $('.icon').on('click', function () {
+    if (flag) {
+      $('#pass').prop('type', 'text');
+      flag = false;
+    } else {
+      $('#pass').prop('type', 'password');
+      flag = true;
+    }
+  }); 
+</script>
+{% endblock %}
+<br><br><br><br><br><br>

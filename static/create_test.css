@@ -1,0 +1,57 @@
+.form-check-input {
+    position: absolute;
+    left: 20px;
+}
+
+.form-group {
+    margin: 2% 0%;
+    /* width: 96%; */
+}
+
+#heading{
+    border-radius: 20px 20px 0px 0px;
+    border: #6a63dd solid 5px;
+    width: 96%;
+    background-color: #6a63dd;
+    /*padding-top: 20%; */ 
+    margin-top: 50px;
+ }
+
+ .login-box{
+    width: 96%;
+    border: #000000 solid 1px;
+    padding-top: 2%;
+    border-radius: 50px 0px 50px 0px;
+    padding: 20px;
+ }
+.container {
+    align-items: center;
+    padding-left: 0;
+    padding-right: 0;
+} 
+h1{
+    margin-top: 2%;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    font-family: auto;
+    font-weight: bolder;
+ }
+
+#heading,  .login-box{
+    margin:0 auto;
+}
+
+
+.footer {
+    position: absolute;
+        bottom: -200px;
+}
+
+@media(max-width:500px) {
+
+    .footer {
+            position: absolute;
+            bottom: 0px;
+        }
+    
+}

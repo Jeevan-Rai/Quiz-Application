@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+	<link rel="stylesheet" href="/static/dashboard.css">
+{% endblock %}
+
+{% block body %}
+<style>
+	@media(max-width:768px){
+		.rev{
+		max-width: 100%;font-size: 12px;}
+		.boxy{
+			max-width: 50%;
+			float: left;
+		}
+		.glog{
+			max-width: 100%;
+		}
+		.go{
+			Display: block;
+		}
+	}
+  </style>
+   <h1 align="center">Welcome {{session.name}}</h1>
+  <div class="row mysec go" id="student-section">
+	 	<div class="col-6 glog">
+			<img src="static/undraw_student.svg" alt="" width="280px">
+	  	</div>
+	  	<div class="col-3 box boxy">
+			<div class="card shadow">
+				<div class="card-body">
+					<img src="static/laptop.png" alt="" width="100px">
+					<center><a href="/give-test" class="btn btn-primary mybtn rev">Take Test</a></center>
+				</div>
+			</div>
+	  	</div>
+	  	<!-- <div class="col-3 box boxy">
+			<div class="card shadow">
+				<div class="card-body">
+					<img src="static/result.png" alt="" width="100px">
+					<center><a  href="/{{session.username}}/tests-given" class="btn btn-primary mybtn rev">Results</a></center>
+				</div>
+			</div>
+		</div> -->
+		<div class="col-3 box boxy">
+			<div class="card shadow">
+				<div class="card-body">
+					<img src="static/result.png" alt="" width="100px">
+					<center><a  href="/tempreg" class="btn btn-primary mybtn rev">Results</a></center>
+				</div>
+			</div>
+		</div>
+  </div>
+ 
+ </div>
+
+
+{% endblock %}
+
+

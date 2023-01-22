@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>KVG AJPUC Exams</title>
+  <link rel="icon" type="image/x-icon" href="/static/ajfav.jfif">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+  <link rel="stylesheet" href="static/common.css">
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  {% block head %}{% endblock %}
+</head>
+
+<body>
+  {% include 'includes/_navbar.html' %}
+  <div class="container">
+    {% include 'includes/_messages.html' %}
+    {% block body %}{% endblock %}
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+<style>
+  .bingo {
+    margin: 0.3%;
+    font-size: 14px;
+    font-weight: bold;
+    bottom: 0;
+    position: absolute;
+  }
+
+  .pogo {
+    font-size: 14px;
+    padding: 0%;
+    margin: 0.3%;
+    font-weight: bold;
+  }
+
+  .cn {
+    font-size: 12px;
+    margin: 0.3%;
+  }
+
+  a {
+    all: unset;
+  }
+
+  a:hover {
+    cursor: pointer;
+  }
+</style>
+
+<footer>
+  <center>
+    <div class="footer"
+      style="background-color: rgb(231, 231, 231);opacity: 0.8;padding: 4px; width: 100%; position: fixed; bottom: 0;"
+      align="center">
+      <h5 class="pogo">© Copyright 2022-23, All rights reserved @ AJPUC, Sullia.</h4>
+        <h4 class="cn">Developed by <a href="https://dhyantd.github.io/"> Dhyan T D </a>(KVGCE) & <a
+            href="https://jeevan-rai.github.io/"> Jeevan P Rai </a>(KVGCE)</h4>
+        <!-- <h4 id="cn">(KVGCE, CSE Department)</h4> -->
+    </div>
+  </center>
+</footer>
+</body>
+
+</html>

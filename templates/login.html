@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="static/mylogin.css">
+{% endblock %}
+
+
+{% block body %}
+<style>
+  .footer {
+    position: absolute;
+    bottom: -90px;
+  }
+</style>
+<center>
+<div class="container" align="center" style="position: absolute; top:20%;" id="login">
+  <!-- <div class="row">
+    <div class="col-sm">
+      <h1 >Login</h1>
+    </div>
+  </div> -->
+  <div class="login-box well">
+    <div class="col-sm">
+      <h1>Login</h1>
+    </div>
+    <form action="" method="POST">
+      <div class="form-group">
+        <!-- <label id="up">Phone No.</label> -->
+        <input type="text" name="username" class="form-control" value="", placeholder="Phone No.">
+      </div>
+      <div class="form-group">
+        <!-- <label id="up">Password</label> -->
+        <input id="pass" type="password" name="password" class="form-control" data-toggle="password", placeholder="Password">
+        <span class="fas fa-eye icon"></span>
+      </div> 
+      <button type="submit" class="btn btn-primary">Login</button>
+      <div>
+        <p>Don't have an account?
+          <a href="/register" id="register">Register</a>.
+        </p>
+      </div>
+    </form>
+  </div>
+</div> </center>
+
+<script>
+  var flag = true;
+  $('.icon').on('click', function(){
+    if(flag){
+      $('#pass').prop('type','text');
+      flag = false;
+    } else {
+      $('#pass').prop('type', 'password');
+      flag = true;
+    }
+  }); 
+</script>
+{% endblock %}

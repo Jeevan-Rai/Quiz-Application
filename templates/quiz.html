@@ -1,0 +1,568 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<style>
+  footer {
+   display: none;
+  }
+
+  #stream {
+    margin: 1%;
+    margin-right: 5%;
+    border: 3px solid rgb(177, 177, 177);
+    border: radius 8px;
+    float: right;
+  }
+
+  @media(max-width:768px) {
+    #stream {
+      margin: 1%;
+      border: 3px solid rgb(177, 177, 177);
+      border: radius 8px;
+      float: right;
+    }
+  }
+</style>
+<div class="container">
+  <video id="stream" width="125px" height="125px">
+    <canvas id="capture">
+    </canvas>
+  </video>
+</div>
+<br><br><br><br><br>
+<div style="position:absolute; padding: 0px 10%;" onselectstart="return false">
+  <script type="text/javascript"> var answers = "{{answers}}";</script>
+  <div id="time">{{duration}}</div>
+  <table>
+    <tr>
+      <td id='queid'>Question No.</td>
+      <td id='mark'>Marks: {{ marks }}</td>
+    </tr>
+  </table>
+  <div class="prettyprint" id="pretest">
+    <p id="que" style="">{{ q }}</p>
+  </div>
+
+  <table id="options">
+    <tr>
+      <td id='a'>𝐀. {{ a }}</td>
+      <td id='b'>𝐁. {{ b }}</td>
+    </tr>
+    <tr>
+      <td id='c'>𝐂. {{ c }}</td>
+      <td id='d'>𝐃. {{ d }}</td>
+    </tr>
+  </table>
+  <style>
+    .dod {
+      width: 30%;
+      margin: 0.5%;
+    }
+
+    .dud {
+      width: 30%;
+      margin: 0.5%;
+    }
+
+    .dude {
+      width: 30%;
+      margin: 0.5%;
+    }
+
+    .ded {
+      width: 30%;
+      margin: 0.5%;
+    }
+
+    @media(max-width:768px) {
+      .dod {
+        margin: 1%;
+        width: 30%;
+      }
+
+      .dud {
+        margin: 1%;
+        width: 30%;
+      }
+
+      .ded {
+        margin: 1%;
+        width: 100%;
+        margin-top: 8%;
+      }
+
+      .dude {
+        margin: 1%;
+        width: 47%;
+      }
+    }
+  </style>
+
+  <style>
+    #overlay {
+      z-index: 100;
+      overflow: scroll;
+    }
+  </style>
+
+  <div id="overlay">
+    <div class="container" id="question-list">
+    </div>
+  </div>
+  <div id="overlay1">
+    <div id="submit-overlay"></div>
+  </div>
+  <div class="container">
+    <ul class="list-unstyled list-inline text-center py-2">
+      <li class="list-inline-item">
+        <button class="btn btn-primary btn-rounded dude" id="questions">Questions</button>
+        <input type="button" value="Submit & Next" id="submit" class="btn btn-success btn-rounded dude">
+        <button class="btn btn-primary btn-rounded dud" id="bookmark" style="background-color: #964B00;">Bookmark</button>
+        <input type="button" value="&laquo; Prev" id="prev" class="btn btn-primary btn-rounded dod"
+          style="background-color: #ddd;color: black; border: none;">
+        <input type="button" value="Next &raquo;" id="next" class="btn btn-primary btn-rounded dod"
+          style="background-color: #ddd;color: black; border: none;">
+        <input type="button" value="Finish Test" class="btn btn-success ded" id="finish" style="background-color: #008657">
+      </li>
+    </ul>
+  </div>
+</div>
+
+<style>
+  * {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  direction: ltr;
+}
+
+body {
+  background-color: #ffffff;
+  color: black;
+}
+
+.ava-modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ava-modal > * {
+  box-sizing: border-box;
+}
+
+.ava-alert {
+  background-color: white;
+  width: 80%;
+  text-align: right;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri;
+  font-weight: 900;
+  animation: 25s 1 ava_alert_animation;
+  -webkit-animation: 0.5s 1 ava_alert_animation;
+}
+
+@media (min-width: 650px) {
+  .ava-alert {
+    width: 300px;
+  }
+}
+
+@keyframes ava_alert_animation {
+  from {
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.ava-alert .ava-progress-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.04);
+  animation-name: progressBarAnimation;
+  -webkit-animation-name: progressBarAnimation;
+}
+
+.ava-alert .ava-text-con {
+  position: relative;
+}
+
+@keyframes progressBarAnimation {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.ava-alert__icon {
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: inset 0px -5px 7px rgba(0, 0, 0, 0.3);
+}
+
+.ava-alert__text {
+  padding: 15px;
+  line-height: 1.5em;
+  color: #8a8a8a;
+  font-size: 13px;
+}
+
+.ava-alert__btn {
+  width: 70px;
+  padding: 7px 0px;
+  display: block;
+  margin: auto;
+  margin-bottom: 13px;
+  border-radius: 0;
+  border: 0;
+  background-color: #9c0000;
+  color: #ffffff;
+  cursor: pointer;
+  position: relative;
+}
+
+.ava-toast {
+  position: fixed;
+  box-shadow: 0px 5px 7px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+}
+
+.ava-toast svg {
+  width: 30px;
+  height: 30px;
+}
+
+.ava-toast .ava-alert__icon {
+  padding: 0 10px;
+  box-shadow: none;
+}
+
+.ava-toast .ava-text-con {
+  width: 100%;
+}
+
+.ava-toast .ava-alert__btn {
+  margin: 0;
+}
+
+.ava-toast .ava-alert__text {
+  padding: 5px;
+  width: 100%;
+}
+
+.svg-box {
+  display: inline-block;
+  position: relative;
+  width: 150px;
+}
+
+.ava-text-con {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.green-stroke {
+  stroke: #ffffff;
+}
+
+.red-stroke {
+  stroke: #ffffff;
+}
+
+.yellow-stroke {
+  stroke: #ffffff;
+}
+
+.circular circle.path {
+  stroke-dasharray: 330;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  opacity: 0.4;
+  animation: 0.7s draw-circle ease-out;
+}
+
+/*------- Checkmark ---------*/
+.checkmark {
+  stroke-width: 6.25;
+  stroke-linecap: round;
+  position: absolute;
+  top: 56px;
+  left: 49px;
+  width: 52px;
+  height: 40px;
+}
+
+.checkmark path {
+  animation: 1s draw-check ease-out;
+}
+
+@keyframes draw-circle {
+  0% {
+    stroke-dasharray: 0, 330;
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  80% {
+    stroke-dasharray: 330, 330;
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes draw-check {
+  0% {
+    stroke-dasharray: 49, 80;
+    stroke-dashoffset: 48;
+    opacity: 0;
+  }
+  50% {
+    stroke-dasharray: 49, 80;
+    stroke-dashoffset: 48;
+    opacity: 1;
+  }
+  100% {
+    stroke-dasharray: 130, 80;
+    stroke-dashoffset: 48;
+  }
+}
+
+/*---------- Cross ----------*/
+.cross {
+  stroke-width: 6.25;
+  stroke-linecap: round;
+  position: absolute;
+  top: 54px;
+  left: 54px;
+  width: 40px;
+  height: 40px;
+}
+
+.cross .first-line {
+  animation: 0.7s draw-first-line ease-out;
+}
+
+.cross .second-line {
+  animation: 0.7s draw-second-line ease-out;
+}
+
+@keyframes draw-first-line {
+  0% {
+    stroke-dasharray: 0, 56;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 0, 56;
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dasharray: 56, 330;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes draw-second-line {
+  0% {
+    stroke-dasharray: 0, 55;
+    stroke-dashoffset: 1;
+  }
+  50% {
+    stroke-dasharray: 0, 55;
+    stroke-dashoffset: 1;
+  }
+  100% {
+    stroke-dasharray: 55, 0;
+    stroke-dashoffset: 70;
+  }
+}
+
+.alert-sign {
+  stroke-width: 6.25;
+  stroke-linecap: round;
+  position: absolute;
+  top: 40px;
+  left: 68px;
+  width: 15px;
+  height: 70px;
+  animation: 0.5s alert-sign-bounce cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.alert-sign .dot {
+  stroke: none;
+  fill: #ffffff;
+}
+
+@keyframes alert-sign-bounce {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+</style>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+
+
+<script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='disp.css') }}">
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('body').bind('cut copy paste', function (event) {
+      event.preventDefault();
+    });
+  });
+
+  // document.addEventListener('contextmenu', event => event.preventDefault());
+  document.danger('contextmenu', event => event.preventDefault());
+
+// ###################################################
+
+
+// ####################################################
+
+  // element which needs to enter full-screen mode
+  var element = document.querySelector("#container");
+
+  // make the element go to full-screen mode
+  element.requestFullscreen()
+    .then(function () {
+      // element has entered fullscreen mode successfully
+    })
+    .catch(function (error) {
+      // element could not enter fullscreen mode
+    });
+
+</script>
+
+<script>
+
+  var stream = document.getElementById("stream");
+  var capture = document.getElementById("capture");
+  var cameraStream = null;
+  var array = null;
+  var values = 0;
+  var length = null;
+
+  function startStreaming() {
+
+    var mediaSupport = 'mediaDevices' in navigator;
+    navigator.getUserMedia = navigator.getUserMedia ||
+      navigator.webkitGetUserMedia ||
+      navigator.mozGetUserMedia;
+
+    if (mediaSupport && null == cameraStream) {
+
+      navigator.mediaDevices.getUserMedia({
+        video: {
+          width: { min: 270, max: 270 },
+          height: { min: 270, max: 270 },
+        }
+      })
+        .then(function (mediaStream) {
+
+          cameraStream = mediaStream;
+
+          stream.srcObject = mediaStream;
+
+          stream.play();
+        })
+        .catch(function (err) {
+
+          console.log("Unable to access camera: " + err);
+        });
+    }
+    else {
+
+      alert('Your browser does not support media devices.');
+
+      return;
+    }
+  }
+  function stopStreaming() {
+
+    if (null != cameraStream) {
+      var track = cameraStream.getTracks()[0];
+      track.stop();
+      stream.load();
+      cameraStream = null;
+    }
+  }
+  function captureSnapshot() {
+    var width = 320;
+    var height = 320;
+    if (null != cameraStream) {
+      var ctx = capture.getContext('2d');
+      var img = new Image();
+      ctx.drawImage(stream, 0, 0, width, height);
+      // img.src = capture.toDataURL("image/png");
+      // img.width = 340;
+      var d1 = capture.toDataURL("image/png");
+      // var res = capture.toDataURL("image/webp");
+      var res = d1.replace("data:image/png;base64,", "");
+      // var res =res1.toDataURL();
+      console.log(res)
+      // var average = values / length;
+
+      // console.log(average)
+      // console.log(Math.round(average - 40));
+
+      if (1) {
+        $.post("/video_feed", {
+          data: { 'imgData': res }
+        },
+          function (data) {
+            console.log(data);
+          });
+      }
+
+    }
+    setTimeout(captureSnapshot, 11000);
+
+  }
+
+  window.onload = function () {
+    startStreaming();
+    captureSnapshot();
+  }
+</script>
+{% endblock %}
